@@ -1,0 +1,25 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="3columns">
+    <body>
+        <referenceContainer name="content.top">
+            <block class="Magento\Framework\View\Element\Template" name="order.info" as="order.info" template="Namluu_Helloworld::orderinfo.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Namluu\Helloworld\ViewModel\OrderInfo</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="div.sidebar.main">
+            <block class="Magento\Framework\View\Element\Text" name="order.left-col">
+                <arguments>
+                    <argument xsi:type="string" name="text">Left Column</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="div.sidebar.additional">
+            <block class="Magento\Framework\View\Element\Text" name="order.right-col" before="-">
+                <arguments>
+                    <argument xsi:type="string" name="text">Right Column</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
