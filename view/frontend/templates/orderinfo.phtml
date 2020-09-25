@@ -6,5 +6,6 @@
         <li><strong><?php echo __('Order Status') ?>:</strong> <?php echo $order->getStatus() ?></li>
         <li><strong><?php echo __('Order Total') ?>:</strong> <?php echo $order->getGrandTotal() ?></li>
         <li><strong><?php echo __('Order Total Invoiced') ?>:</strong> <?php echo $order->getTotalInvoiced() ?></li>
+        <li><strong><?php echo __('Country') ?>:</strong> <?php echo $block->getViewModel()->getCountryName() ?></li>
     </ul>
 <?php endif; ?>

@@ -11,11 +11,15 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     protected $_orderFactory;
 
+    protected $getSourceItemsBySku;
+
     public function __construct(
         Context $context,
-        OrderFactory $orderFactory
+        OrderFactory $orderFactory,
+        \Magento\InventoryApi\Api\GetSourceItemsBySkuInterface $getSourceItemsBySku
     ) {
         $this->_orderFactory = $orderFactory;
+        $this->getSourceItemsBySku = $getSourceItemsBySku;
         parent::__construct($context);
     }
 
@@ -31,14 +35,24 @@ class Index extends \Magento\Framework\App\Action\Action
             $orderData['total'] = $order->getGrandTotal();
             $items = [];
             foreach ($order->getAllVisibleItems() as $item) {
+                $sources = $this->getSourceItemsBySku->execute($item->getSku());
+                $sourceCode = [];
+                foreach ($sources as $source) {
+                    $sourceCode[] = $source->getSourceCode();
+                    // call API to check $sourceCode and $sku
+                }
                 $items[] = [
                     'sku' => $item->getSku(),
                     'item_id' => $item->getId(),
-                    'price' => $item->getPriceInclTax()
+                    'price' => $item->getPriceInclTax(),
+                    'warehouses' => $sourceCode
                 ];
             }
             $orderData['items'] = $items;
             $orderData['total_invoiced'] = $order->getTotalInvoiced();
+
+
+
         } else {
             $orderData = 'Hello World!';
         }
